@@ -1,0 +1,4 @@
+dbt-core==1.9.3
+dbt-duckdb==1.9.2
+duckdb==1.2.1
+duckcli==0.2.1
