@@ -1,0 +1,34 @@
+name: telecom_churn
+version: '1.0.0'
+
+profile: telecom_churn
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  telecom_churn:
+    +materialized: table
+    staging:
+      +materialized: view
+
+seeds:
+  telecom_churn:
+    +quote_columns: true
+
+    telecom_customer_churn:
+      +column_types:
+        Customer ID: varchar
+        Zip Code: varchar
+
+    telecom_zipcode_population:
+      +column_types:
+        Zip Code: varchar

@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: stg_telecom_customers
+    description: Cleaned customer data.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Stayed', 'Churned', 'Joined']
+
+      - name: zip_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_zipcode_population')
+              field: zip_code
+
+  - name: stg_zipcode_population
+    description: Population estimates by ZIP code.
+    columns:
+      - name: zip_code
+        tests:
+          - unique
+          - not_null
+
+      - name: population
+        tests:
+          - not_null
+
+  - name: customer_churn
+    description: One row per customer with population and analysis groups.
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+      - name: population
+        tests:
+          - not_null
+
+  - name: churn_by_contract
+    description: Customer counts and churn percentage by contract.
+
+  - name: churn_by_segment
+    description: Churn analysis by age, tenure, internet and population.
